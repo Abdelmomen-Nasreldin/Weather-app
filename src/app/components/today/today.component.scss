@@ -1,0 +1,17 @@
+.today-weather{
+  .container{
+    h1{}
+    hr{}
+    .row{
+      display:flex;
+      .temp{
+        display:flex;
+        img{}
+        .temperature{
+          // display:flex;
+        }
+      }
+      .other-weather{}
+    }
+  }
+}

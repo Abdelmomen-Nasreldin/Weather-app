@@ -1,1 +1,84 @@
-<p>today works!</p>
+<div class="today-weather">
+  <div class="container">
+    <h1>{{ area?.country }} Weather Now</h1>
+    <hr />
+    <div *ngIf="currentCondition" class="row">
+      <!-- <div *ngIf="currentCondition"> -->
+      <div class="temp">
+        <img
+          src="http://cdn.worldweatheronline.com/images/wsymbols01_png_64/wsymbol_0001_sunny.png"
+          alt=""
+        />
+        <div class="tempraure">
+          <p>{{ currentCondition.temp_C }}</p>
+          <span>{{ currentCondition.FeelsLikeC }}</span>
+        </div>
+      </div>
+      <div class="other-weather">
+        <p></p>
+        <hr />
+        <div *ngIf="astronomy">
+          <div class="astronomy">
+            <span>sunrise: {{ astronomy[0].sunrise }}</span>
+            <span>sunset: {{ astronomy[0].sunset }}</span>
+            <span> moonrise: {{ astronomy[0].moonrise }}</span>
+            <span>moonset: {{ astronomy[0].moonset }}</span>
+          </div>
+        </div>
+      </div>
+      <!-- </div> -->
+
+    </div>
+    <hr>
+    <div class="" *ngFor="let item of hourlyWeather">
+      {{item.time}}
+      <!-- <img [src]="item.weatherIconUrl[0].value" alt=""> -->
+
+      {{item.tempC}}
+    </div>
+  </div>
+</div>
+<!-- <p>weather now: {{currentCondition.temp_C}} </p>
+<p>humidity: {{currentCondition.humidity}} </p> -->
+<!-- <p>average Temperature this month: {{currentCondition?.temp_C}} </p>
+<p>average Temperature this month: {{currentCondition?.temp_C}} </p>
+<span></span> -->
+<!-- DewPointC: "7"
+DewPointF: "45"
+FeelsLikeC: "17"
+FeelsLikeF: "63"
+HeatIndexC: "17"
+HeatIndexF: "63"
+WindChillC: "17"
+WindChillF: "63"
+WindGustKmph: "34"
+WindGustMiles: "21"
+chanceoffog: "0"
+chanceoffrost: "0"
+chanceofhightemp: "0"
+chanceofovercast: "0"
+chanceofrain: "0"
+chanceofremdry: "91"
+chanceofsnow: "0"
+chanceofsunshine: "86"
+chanceofthunder: "0"
+chanceofwindy: "0"
+cloudcover: "0"
+humidity: "51"
+precipInches: "0.0"
+precipMM: "0.0"
+pressure: "1012"
+pressureInches: "30"
+tempC: "17"
+tempF: "63"
+time: "0"
+uvIndex: "1"
+visibility: "10"
+visibilityMiles: "6"
+weatherCode: "113"
+weatherDesc: [{…}]
+weatherIconUrl: [{…}]
+winddir16Point: "NNW"
+winddirDegree: "338"
+windspeedKmph: "25"
+windspeedMiles: "15" -->
