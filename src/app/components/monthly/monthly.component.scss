@@ -1,0 +1,38 @@
+.monthly-weather{
+  background-color:  #fff;
+  border-radius: 20px;
+  padding: 30px;
+
+  h1{text-align: center;margin-top:0;}
+  .main{
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 325px));
+  justify-content:space-evenly;
+  text-align: center;
+  gap: 20px;
+  .card{
+    background-color:  #fff;
+    padding: 15px 10px;
+    border-radius:5px;
+    box-shadow: 0  0 8px 0px rgba(0, 0, 0, 0.562);
+    p{
+      margin-top: 0;
+    font-size: 18px;
+    font-weight: 500;
+    }
+    .temp{
+      display:flex;
+      justify-content:space-around;
+      p{
+        font-size: 14px;
+        font-weight: 500;
+        color: #777;
+        // color: rgb(73, 80, 80);
+      }
+      span{
+        color: #777;
+      }
+    }
+  }
+}
+}

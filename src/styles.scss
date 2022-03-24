@@ -1,1 +1,47 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+  font-family: "open sans", sans-serif;
+  background-color: #e5e5e5;
+}
+.container {
+  max-width: 540px;
+  margin: auto;
+}
+hr {
+  background: #e6e6e6;
+  border: none;
+  height: 1px;
+}
+ul {
+  list-style: none;
+  margin: 0;
+}
+.my {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+@media (min-width: 576px) {
+  .container {
+    max-width: 540px;
+  }
+}
+@media (min-width: 768px) {
+  .container {
+    max-width: 720px;
+  }
+}
+@media (min-width: 992px) {
+  .container {
+    max-width: 960px;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1140px;
+  }
+}
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1320px;
+  }
+}

@@ -1,43 +1,86 @@
 <div class="today-weather">
-  <div class="container">
-    <h1>{{ area?.country }} Weather Now</h1>
-    <hr />
-    <div *ngIf="currentCondition" class="row">
-      <!-- <div *ngIf="currentCondition"> -->
-      <div class="temp">
+  <h1>{{ area?.country }} Weather Now</h1>
+  <hr />
+  <div *ngIf="currentCondition" class="row">
+    <div class="temp">
+      <div class="temp-img">
         <img
-          src="http://cdn.worldweatheronline.com/images/wsymbols01_png_64/wsymbol_0001_sunny.png"
+          *ngIf="hourNow >= 5 && hourNow <= 17"
+          src="../../../assets/sun.webp"
           alt=""
         />
-        <div class="tempraure">
-          <p>{{ currentCondition.temp_C }}</p>
-          <span>{{ currentCondition.FeelsLikeC }}</span>
+        <img
+          *ngIf="hourNow > 17 || hourNow < 5"
+          src="../../../assets/moon.webp"
+          alt=""
+        />
+        <div class="temperature">
+          <p >{{ currentCondition.temp_C }}</p>
+          <span>Feels {{ currentCondition.FeelsLikeC }} °c</span>
         </div>
       </div>
-      <div class="other-weather">
-        <p></p>
-        <hr />
-        <div *ngIf="astronomy">
-          <div class="astronomy">
+      <p class="weatherDesc">{{ currentCondition.weatherDesc }}</p>
+    </div>
+
+    <div class="other-weather">
+      <div class="cloudCover-humidiy">
+        <span>cloudcover: {{ currentCondition.cloudcover }}%</span>
+        <span>Humidity: {{ currentCondition.humidity }}%</span>
+      </div>
+      <hr />
+      <div *ngIf="astronomy">
+        <div class="astronomy">
+          <div class="left">
             <span>sunrise: {{ astronomy[0].sunrise }}</span>
             <span>sunset: {{ astronomy[0].sunset }}</span>
+          </div>
+          <div class="right">
             <span> moonrise: {{ astronomy[0].moonrise }}</span>
             <span>moonset: {{ astronomy[0].moonset }}</span>
           </div>
         </div>
       </div>
-      <!-- </div> -->
-
     </div>
-    <hr>
-    <div class="" *ngFor="let item of hourlyWeather">
-      {{item.time}}
+    <!-- </div> -->
+  </div>
+  <hr />
+  <div class="hourly-Weather">
+    <div *ngFor="let item of hourlyWeather">
+      <p>
+        {{ item.time }}
+        <span *ngIf="+item.time >= 0 && +item.time < 1200">am</span>
+        <span *ngIf="+item.time >= 1200">pm</span>
+      </p>
+      <p>
+        <img
+          width="30px"
+          *ngIf="
+            item.time == '600' ||
+            item.time == '900' ||
+            item.time == '1200' ||
+            item.time == '1500'
+          "
+          src="../../../assets/sun.webp"
+          alt=""
+        />
+        <img
+          width="30px"
+          *ngIf="
+            item.time == '0' ||
+            item.time == '300' ||
+            item.time == '1800' ||
+            item.time == '2100'
+          "
+          src="../../../assets/moon.webp"
+          alt=""
+        />
+      </p>
+      <p>{{ item.tempC }} °c</p>
       <!-- <img [src]="item.weatherIconUrl[0].value" alt=""> -->
-
-      {{item.tempC}}
     </div>
   </div>
 </div>
+<!-- </div> -->
 <!-- <p>weather now: {{currentCondition.temp_C}} </p>
 <p>humidity: {{currentCondition.humidity}} </p> -->
 <!-- <p>average Temperature this month: {{currentCondition?.temp_C}} </p>

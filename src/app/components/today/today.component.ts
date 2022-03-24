@@ -18,6 +18,7 @@ export class TodayComponent implements OnInit {
   hourlyWeather!: HourlyWeather[];
   currentCondition: CurrentCondition | null = null;
   // currentCondition: CurrentCondition | null = null;
+  hourNow = +new Date().getHours();
   constructor(
     private httpGetWeather: ForecastService,
     private hourlyWeatherService: CovertBackToFrontService
@@ -35,6 +36,9 @@ export class TodayComponent implements OnInit {
     this.httpGetWeather.getWeatherForecast().subscribe((data: any) => {
       console.log(data);
     });
+    this.httpGetWeather.getHistoricalWeather().subscribe((data)=>{
+      console.log(data);
+    })
 
 
   }

@@ -6,6 +6,7 @@ import { CurrentCondition } from '../models/current-condition';
 import { HourlyWeather } from '../models/hourly-weather';
 import { ForecastService } from './forecast.service';
 import { DailyWeather } from './../models/daily-weather';
+import { MonthlyAverage } from '../models/monthly-average';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +14,7 @@ import { DailyWeather } from './../models/daily-weather';
 export class CovertBackToFrontService {
   hourlyWeather!: HourlyWeather[];
   dailyWeather!: DailyWeather[];
+  monthlyWeather!: MonthlyAverage[];
   currentCondition!: CurrentCondition[];
   astronomy!: Astronomy[];
   area!: Area[];
@@ -27,6 +29,7 @@ export class CovertBackToFrontService {
           let covertedAstronomy = [];
           let covertedArea = [];
           let covertedDailyWeather = [];
+          let covertedMonthlyWeather = [];
           for (const area of data.data.nearest_area) {
             let areaScheme: Area = {
               areaName: area.areaName[0].value,
@@ -82,17 +85,28 @@ export class CovertBackToFrontService {
             };
             covertedDailyWeather.push(dailySchema);
           }
+          for (const monthly of data.data.ClimateAverages[0].month) {
+            let monthlySchema: MonthlyAverage = {
+              name: monthly.name,
+              absMaxTemp: monthly.absMaxTemp,
+              avgMinTemp: monthly.avgMinTemp,
+            };
+            covertedMonthlyWeather.push(monthlySchema);
+          }
 
           this.hourlyWeather = [...covertedHourlyWeather];
           this.currentCondition = [...covertedCurrentCondition];
           this.astronomy = [...covertedAstronomy];
           this.area = [...covertedArea];
           this.dailyWeather = [...covertedDailyWeather];
+          this.monthlyWeather = [...covertedMonthlyWeather];
           return {
             hourlyWeather: this.hourlyWeather,
             currentCondition: this.currentCondition,
             astronomy: this.astronomy,
             area: this.area,
+            dailyWeather: this.dailyWeather,
+            monthlyWeather: this.monthlyWeather,
           };
         }
         return;
