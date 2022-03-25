@@ -20,7 +20,7 @@ export class CovertBackToFrontService {
   area!: Area[];
   constructor(private forecastService: ForecastService) {}
 
-  convertHourlyWeather() {
+  convertWeather() {
     return this.forecastService.getWeatherForecast().pipe(
       map((data: any) => {
         if (data) {
@@ -50,18 +50,22 @@ export class CovertBackToFrontService {
             };
             covertedHourlyWeather.push(v);
           }
-          for (const current of data.data.current_condition) {
-            let currentConditionSchema: CurrentCondition = {
-              FeelsLikeC: current.FeelsLikeC,
-              cloudcover: current.cloudcover,
-              temp_C: current.temp_C,
-              humidity: current.humidity,
-              weatherDesc: current.weatherDesc[0].value,
-              // weatherIconUrl: current.weatherIconUrl[0].value,
-            };
-            covertedCurrentCondition.push(currentConditionSchema);
+          // for (const current of data.data.current_condition) {
+          //   let currentConditionSchema: CurrentCondition = {
+          //     FeelsLikeC: current.FeelsLikeC,
+          //     cloudcover: current.cloudcover,
+          //     temp_C: current.temp_C,
+          //     humidity: current.humidity,
+          //     weatherDesc: current.weatherDesc[0].value,
+          //     // weatherIconUrl: current.weatherIconUrl[0].value,
+          //   };
+          //   covertedCurrentCondition.push(currentConditionSchema);
+          // }
+          if (data?.data?.current_condition) {
+            this.currentCondition = data.data.current_condition.map((c: any) =>
+              CurrentCondition.getInstance(c)
+            );
           }
-
           for (const astronomy of data.data.weather[0].astronomy) {
             let astronomySchema: Astronomy = {
               moonrise: astronomy.moonrise,
@@ -71,7 +75,6 @@ export class CovertBackToFrontService {
             };
             covertedAstronomy.push(astronomySchema);
           }
-
 
           for (const daily of data.data.weather) {
             let dailySchema: DailyWeather = {
@@ -95,7 +98,7 @@ export class CovertBackToFrontService {
           }
 
           this.hourlyWeather = [...covertedHourlyWeather];
-          this.currentCondition = [...covertedCurrentCondition];
+          // this.currentCondition = [...covertedCurrentCondition];
           this.astronomy = [...covertedAstronomy];
           this.area = [...covertedArea];
           this.dailyWeather = [...covertedDailyWeather];
@@ -112,5 +115,49 @@ export class CovertBackToFrontService {
         return;
       })
     );
+  }
+}
+interface BackendData {
+  data: {
+    ClimateAverages: {
+      months: {
+        absMaxTemp: string;
+        absMaxTemp_F: string;
+        avgDailyRainfall: string;
+        avgMinTemp: string;
+        avgMinTemp_F: string;
+        index: string;
+        name: string;
+      }[];
+    }[];
+  };
+}
+class ClimateAverages {
+  constructor(
+    public name: string,
+    public absMaxTemp?: string,
+    public avgMinTemp?: string
+  ) {}
+  static getInstance(data: {
+    // months: {
+      absMaxTemp: string;
+      absMaxTemp_F: string;
+      avgDailyRainfall: string;
+      avgMinTemp: string;
+      avgMinTemp_F: string;
+      index: string;
+      name: string;
+    // };
+  }): ClimateAverages {
+    return new ClimateAverages(data.name, data.absMaxTemp, data.avgMinTemp);
+  }
+}
+class Data {
+  constructor(public ClimateAverages: any[]) {}
+  static getInstance(backendData: BackendData): Data {
+    const climateAverages = backendData.data.ClimateAverages.map(
+      (c: any) => new ClimateAverages(c.month)
+    );
+    return new Data(climateAverages);
   }
 }

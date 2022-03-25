@@ -2,12 +2,52 @@ import { Injectable } from '@angular/core';
 import { map, Observable, switchMap } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
+let weatherKey = 'f9bd9c6b96b549b6aeb123850222003';
+let lat  , lon
+let qq = `${lon},${lat}`.toString()
 @Injectable({
   providedIn: 'root',
 })
 export class ForecastService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    // this.getLocation()
+  }
 
+  // getLocation(): any {
+  //   if ('geolocation' in navigator) {
+  //     navigator.geolocation.getCurrentPosition(
+  //       (position) => {
+  //          lat = position.coords.latitude;
+  //          lon = position.coords.longitude;
+  //         //  q = `${lon},${lat}`;
+  //         // console.log(typeof q);
+  //         // return q;
+
+  //       },
+  //       (error) => {
+  //         console.log(error);
+  //         return 'no';
+  //       }
+  //     );
+  //   }
+  //   // else {
+  //   //   return 'esna';
+  //   // }
+  // }
+
+  // getWeatherForecast() {
+  //   let params = new HttpParams()
+  //     .set('key', weatherKey)
+  //     .set('q', qq)
+  //     .set('includelocation', 'yes')
+  //     .set('showlocaltime', 'yes')
+  //     .set('units', 'metric')
+  //     .set('format', 'json');
+  //   return this.http.get(
+  //     'http://api.worldweatheronline.com/premium/v1/weather.ashx',
+  //     { params: params }
+  //   );
+  // }
   getWeatherForecast() {
 
    console.log('====================================');
@@ -20,13 +60,13 @@ export class ForecastService {
           observer.next(position);
         },
         (error) => {
-          observer.next(error);
+          observer.error(error);
         }
       );
     }).pipe(
       map((value: any) => {
         return new HttpParams()
-        .set('key', 'f9bd9c6b96b549b6aeb123850222003')
+        .set('key', weatherKey)
         // .set('q', '30.033333,31.233334')
         .set('q', '26.7333304,33.9333296')
         // .set('q', value.coords.longitude + ',' + value.coords.latitude)
@@ -34,21 +74,36 @@ export class ForecastService {
         .set('showlocaltime', 'yes')
         .set('units', 'metric')
         .set('format', 'json')
+
       }),
       switchMap(values =>{
          return this.http.get('http://api.worldweatheronline.com/premium/v1/weather.ashx', {params: values})
       })
     );
   }
-  getHistoricalWeather(){
-   return this.http.get('http://api.worldweatheronline.com/premium/v1/past-weather.ashx', {params: {
-     'key' : 'f9bd9c6b96b549b6aeb123850222003',
-     'q': 'safaga',
-     'units': 'metric',
-     'date': '2022-2-2',
-     'format': 'json'
-   }})
+  getHistoricalWeather(city: string, date: string) {
+    let params = new HttpParams()
+      .set('key', weatherKey)
+      .set('q', city)
+      .set('date', date)
+      .set('units', 'metric')
+      .set('format', 'json');
+    return this.http.get(
+      'http://api.worldweatheronline.com/premium/v1/past-weather.ashx',
+      { params: params }
+    );
+  }
+  getWeatherByCity(city: string) {
+    let params = new HttpParams()
+      .set('key', weatherKey)
+      .set('q', city)
+      .set('includelocation', 'yes')
+      .set('showlocaltime', 'yes')
+      .set('units', 'metric')
+      .set('format', 'json');
+    return this.http.get(
+      'http://api.worldweatheronline.com/premium/v1/weather.ashx',
+      { params: params }
+    );
   }
 }
-
-

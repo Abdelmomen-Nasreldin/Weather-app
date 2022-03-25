@@ -4,7 +4,6 @@ import { CovertBackToFrontService } from 'src/app/services/covert-back-to-front.
 import * as Highcharts from 'highcharts';
 import HC_exporting from 'highcharts/modules/exporting';
 import { MonthlyAvgTempChartService } from 'src/app/services/monthly-avg-temp-chart.service';
-// import { error } from 'highcharts';
 
 export const yearlyConsumption = {
   title: {
@@ -85,49 +84,36 @@ export const yearlyConsumption = {
 @Component({
   selector: 'app-monthly',
   templateUrl: './monthly.component.html',
-  styleUrls: ['./monthly.component.scss']
+  styleUrls: ['./monthly.component.scss'],
 })
-
 export class MonthlyComponent implements OnInit {
-  monthlyWeather : MonthlyAverage[] =[]
+  monthlyWeather: MonthlyAverage[] = [];
   Highcharts = Highcharts;
   MonthlyAvgTemperature = {};
-  yearlyConsumption = {}
   isHighcharts = typeof Highcharts === 'object';
   loading: boolean = true;
-  constructor( private hourlyWeatherService: CovertBackToFrontService, private MonthlyAvgTempChart : MonthlyAvgTempChartService ) {
-    this.yearlyConsumption = yearlyConsumption
-   }
+  constructor(
+    private hourlyWeatherService: CovertBackToFrontService,
+    private MonthlyAvgTempChart: MonthlyAvgTempChartService
+  ) {}
 
   ngOnInit(): void {
-    this.hourlyWeatherService.convertHourlyWeather().subscribe((data) => {
+    this.hourlyWeatherService.convertWeather().subscribe((data) => {
       if (data) {
         this.monthlyWeather = data.monthlyWeather;
-        console.log(this.monthlyWeather);
-
       }
     });
     this.MonthlyAvgTempChart.monthlyWeatherChart().subscribe({
       next: (data) => {
-        this.MonthlyAvgTemperature = data.MonthlyAvgTemperature
+        this.MonthlyAvgTemperature = data.MonthlyAvgTemperature;
         this.loading = false;
       },
       error: (err: any) => {
         console.log(err);
         this.loading = false;
-      }
+      },
+    });
 
-      // console.log(this.MonthlyAvgTemperature);
-
-    })
-    // this.MonthlyAvgTemperature = this.MonthlyAvgTempChart.monthlyWeatherChart()
-    // console.log(this.MonthlyAvgTemperature);
     HC_exporting(Highcharts);
-    }
-    // this.MonthlyAvgTempChart.monthlyWeatherChart().subscribe((data)=>){
-    //   console.log(data);
-    // }
-    // HC_exporting(Highcharts);
-
-
+  }
 }

@@ -10,7 +10,7 @@ export const MonthlyAvgTemperature = {
     text: 'Monthly Average Temperature',
   },
   subtitle: {
-    text: 'Source: WorldClimate.com',
+    text: 'Source: world weather online',
   },
   xAxis: {
     categories: [
@@ -72,11 +72,14 @@ export const MonthlyAvgTemperature = {
   providedIn: 'root',
 })
 export class MonthlyAvgTempChartService {
-  constructor(private getWeatherData: ForecastService) {}
+  constructor(
+    private getWeatherData: ForecastService,
+    private getConvertedData: CovertBackToFrontService
+  ) {}
   getAllWeatherData() {
-    return this.getWeatherData.getWeatherForecast().pipe(
+    return this.getConvertedData.convertWeather().pipe(
       map((weather: any) => {
-        return weather.data.ClimateAverages[0].month;
+        return weather.monthlyWeather;
       })
     );
   }
@@ -84,10 +87,14 @@ export class MonthlyAvgTempChartService {
   monthlyWeatherChart() {
     return this.getAllWeatherData().pipe(
       map((months: any, index) => {
-        console.log(months);
+        // console.log(months);
         let names = months.map((month: { name: string }) => month.name);
-        let absMaxTempArr = months.map((month: any) => month.absMaxTemp).map((maxTemp: string | number)=> +maxTemp); //.map((maxTemp: number)=> maxTemp.toFixed(2))
-        let avgMinTempArr = months.map((month: any) => month.avgMinTemp).map((maxTemp: string | number)=> +maxTemp);
+        let absMaxTempArr = months
+          .map((month: any) => month.absMaxTemp)
+          .map((maxTemp: string | number) => +maxTemp); //.map((maxTemp: number)=> maxTemp.toFixed(2))
+        let avgMinTempArr = months
+          .map((month: any) => month.avgMinTemp)
+          .map((maxTemp: string | number) => +maxTemp);
         return {
           MonthlyAvgTemperature: {
             ...MonthlyAvgTemperature,

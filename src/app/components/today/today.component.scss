@@ -5,7 +5,32 @@
   background-color: #fff;
   color: #555;
   // padding: 10px;
-  h1 {
+  .chooseCityWeather {
+    input {
+      border: 1px solid #888;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    button {
+      background: #67a803;
+      padding: 10px;
+      border: 1px solid #888;
+      border-radius: 5px;
+      margin: 5px;
+      color: #fff;
+    }
+  }
+  .area{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 5px;
+    h1{
+      margin-right: 10px;
+    }
+    .region-country{
+      
+    }
   }
   hr {
   }
@@ -17,16 +42,16 @@
     justify-content: space-between;
     .temp {
       display: flex;
-        align-items: center;
-        // justify-content: space-around;
-        flex-direction: column;
-        position: relative;
-        // flex-basis: 300px;
-        margin: auto;
-        .weatherDesc{
-          // position: absolute;
-          // bottom:40px;
-        }
+      align-items: center;
+      // justify-content: space-around;
+      flex-direction: column;
+      position: relative;
+      // flex-basis: 300px;
+      margin: auto;
+      .weatherDesc {
+        // position: absolute;
+        // bottom:40px;
+      }
       .temp-img {
         display: flex;
         align-items: center;

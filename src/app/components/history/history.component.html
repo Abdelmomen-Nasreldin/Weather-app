@@ -1,0 +1,46 @@
+<div class="history">
+  <div class="select-date">
+    <input
+      type="date"
+      #getWeatherDateInput
+      id="getWeatherDate"
+      name="weatherInput"
+    />
+    <button (click)="getWeatherDate(getWeatherDateInput.value)">
+      Get Weather
+    </button>
+  </div>
+  <div class="info" *ngIf="weatherData">
+    <div class="main">
+      <h2>{{ date }}</h2>
+      <div class="min-max">
+        <p>Min/max</p>
+        <p>{{ weatherData.maxtempC }}/{{ weatherData.mintempC }} °c</p>
+      </div>
+    </div>
+    <div class="astronomy">
+      <span>Moonrise: <span>{{weatherData.astronomy[0].moonrise}}</span></span>
+      <span>Moonset: <span>{{weatherData.astronomy[0].moonset}}</span></span>
+      <span>Sunrise: <span>{{weatherData.astronomy[0].sunrise}}</span></span>
+      <span>Sunset: <span>{{weatherData.astronomy[0].sunset}}</span></span>
+    </div>
+    <div class="hourly-parent">
+      <div class="hourly-heading">
+        <span>Time</span>
+        <span>Forecast</span>
+        <span>Cloudcover</span>
+        <span>Humidity</span>
+      </div>
+      <div class="hourly" *ngFor="let hour of weatherData.hourly">
+        <div class="hour">
+          {{ hour.time / 100 }}
+          <span *ngIf="+hour.time >= 0 && +hour.time < 1200"> am</span>
+          <span *ngIf="+hour.time >= 1200"> pm</span>
+        </div>
+        <div class="temp">{{ hour.tempC }} °c</div>
+        <div class="cloudcover">{{ hour.cloudcover }} %</div>
+        <div class="humidity">{{ hour.humidity }} %</div>
+      </div>
+    </div>
+  </div>
+</div>

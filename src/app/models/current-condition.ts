@@ -1,29 +1,25 @@
-export interface CurrentCondition {
-  temp_C: string,
-  FeelsLikeC?: string,
-  cloudcover? : string,
-  humidity? : string,
-  weatherDesc?: string,
-  weatherIconUrl? : string,
+export class CurrentCondition {
+  constructor(
+    public temp_C: string,
+    public FeelsLikeC: string,
+    public cloudcover: string,
+    public humidity: string,
+    public weatherDesc: string,
+    public weatherIconUrl: string
+  ) {}
+  static getInstance(data: any): CurrentCondition {
+    return new CurrentCondition(
+      data.temp_C,
+      data.FeelsLikeC,
+      data.cloudcover,
+      data.humidity,
+      data.weatherDesc[0]?.value || '',
+      data.weatherIconUrl
+    );
+    // FeelsLikeC: current.FeelsLikeC,
+    // cloudcover: current.cloudcover,
+    // temp_C: current.temp_C,
+    // humidity: current.humidity,
+    // weatherDesc: current.weatherDesc[0].value,
+  }
 }
-// FeelsLikeC: "7"
-// FeelsLikeF: "45"
-// cloudcover: "50"
-// humidity: "62"
-// observation_time: "09:10 PM"
-// precipInches: "0.0"
-// precipMM: "0.0"
-// pressure: "1018"
-// pressureInches: "30"
-// temp_C: "10"
-// temp_F: "50"
-// uvIndex: "1"
-// visibility: "10"
-// visibilityMiles: "6"
-// weatherCode: "116"
-// weatherDesc: [{…}]
-// weatherIconUrl: [{…}]
-// winddir16Point: "N"
-// winddirDegree: "350"
-// windspeedKmph: "7"
-// windspeedMiles: "4"

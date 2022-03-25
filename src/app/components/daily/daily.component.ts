@@ -12,7 +12,7 @@ dailyWeather! : DailyWeather[]
   constructor(private hourlyWeatherService: CovertBackToFrontService) { }
 
   ngOnInit(): void {
-    this.hourlyWeatherService.convertHourlyWeather().subscribe((data) => {
+    this.hourlyWeatherService.convertWeather().subscribe((data) => {
       if (data) {
           this.dailyWeather = data.dailyWeather
       }

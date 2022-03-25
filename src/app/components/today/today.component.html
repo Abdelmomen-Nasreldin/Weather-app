@@ -1,5 +1,17 @@
 <div class="today-weather">
-  <h1>{{ area?.country }} Weather Now</h1>
+  <div class="area">
+    <h1>{{ area?.areaName }} Weather Now</h1>
+    <div class="region-country">
+      <span>{{ area?.region }}, </span>
+      <span>{{ area?.country }}</span>
+    </div>
+  </div>
+  <div class="chooseCityWeather">
+    <input type="text" placeholder="Enter A City" #cityInput />
+    <button (click)="showCityWeather(cityInput.value)">
+      Show City Weather
+    </button>
+  </div>
   <hr />
   <div *ngIf="currentCondition" class="row">
     <div class="temp">
@@ -15,7 +27,7 @@
           alt=""
         />
         <div class="temperature">
-          <p >{{ currentCondition.temp_C }}</p>
+          <p>{{ currentCondition.temp_C }}</p>
           <span>Feels {{ currentCondition.FeelsLikeC }} °c</span>
         </div>
       </div>
@@ -41,13 +53,12 @@
         </div>
       </div>
     </div>
-    <!-- </div> -->
   </div>
   <hr />
   <div class="hourly-Weather">
     <div *ngFor="let item of hourlyWeather">
       <p>
-        {{ item.time }}
+        {{ +item.time / 100 }}
         <span *ngIf="+item.time >= 0 && +item.time < 1200">am</span>
         <span *ngIf="+item.time >= 1200">pm</span>
       </p>
@@ -76,52 +87,7 @@
         />
       </p>
       <p>{{ item.tempC }} °c</p>
-      <!-- <img [src]="item.weatherIconUrl[0].value" alt=""> -->
     </div>
   </div>
 </div>
-<!-- </div> -->
-<!-- <p>weather now: {{currentCondition.temp_C}} </p>
-<p>humidity: {{currentCondition.humidity}} </p> -->
-<!-- <p>average Temperature this month: {{currentCondition?.temp_C}} </p>
-<p>average Temperature this month: {{currentCondition?.temp_C}} </p>
-<span></span> -->
-<!-- DewPointC: "7"
-DewPointF: "45"
-FeelsLikeC: "17"
-FeelsLikeF: "63"
-HeatIndexC: "17"
-HeatIndexF: "63"
-WindChillC: "17"
-WindChillF: "63"
-WindGustKmph: "34"
-WindGustMiles: "21"
-chanceoffog: "0"
-chanceoffrost: "0"
-chanceofhightemp: "0"
-chanceofovercast: "0"
-chanceofrain: "0"
-chanceofremdry: "91"
-chanceofsnow: "0"
-chanceofsunshine: "86"
-chanceofthunder: "0"
-chanceofwindy: "0"
-cloudcover: "0"
-humidity: "51"
-precipInches: "0.0"
-precipMM: "0.0"
-pressure: "1012"
-pressureInches: "30"
-tempC: "17"
-tempF: "63"
-time: "0"
-uvIndex: "1"
-visibility: "10"
-visibilityMiles: "6"
-weatherCode: "113"
-weatherDesc: [{…}]
-weatherIconUrl: [{…}]
-winddir16Point: "NNW"
-winddirDegree: "338"
-windspeedKmph: "25"
-windspeedMiles: "15" -->
+
