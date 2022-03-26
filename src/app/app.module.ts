@@ -10,6 +10,9 @@ import { DailyComponent } from './components/daily/daily.component';
 import { MonthlyComponent } from './components/monthly/monthly.component';
 import { HistoryComponent } from './components/history/history.component';
 import { HomeComponent } from './components/home/home.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { CityComponent } from './components/city/city.component';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +21,10 @@ import { HomeComponent } from './components/home/home.component';
     DailyComponent,
     MonthlyComponent,
     HistoryComponent,
-    HomeComponent
+    HomeComponent,
+    NotFoundComponent,
+    CityComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

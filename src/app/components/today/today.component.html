@@ -6,12 +6,7 @@
       <span>{{ area?.country }}</span>
     </div>
   </div>
-  <div class="chooseCityWeather">
-    <input type="text" placeholder="Enter A City" #cityInput />
-    <button (click)="showCityWeather(cityInput.value)">
-      Show City Weather
-    </button>
-  </div>
+  
   <hr />
   <div *ngIf="currentCondition" class="row">
     <div class="temp">

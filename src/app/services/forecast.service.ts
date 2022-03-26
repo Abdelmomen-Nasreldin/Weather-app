@@ -12,48 +12,10 @@ export class ForecastService {
   constructor(private http: HttpClient) {
     // this.getLocation()
   }
-
-  // getLocation(): any {
-  //   if ('geolocation' in navigator) {
-  //     navigator.geolocation.getCurrentPosition(
-  //       (position) => {
-  //          lat = position.coords.latitude;
-  //          lon = position.coords.longitude;
-  //         //  q = `${lon},${lat}`;
-  //         // console.log(typeof q);
-  //         // return q;
-
-  //       },
-  //       (error) => {
-  //         console.log(error);
-  //         return 'no';
-  //       }
-  //     );
-  //   }
-  //   // else {
-  //   //   return 'esna';
-  //   // }
-  // }
-
-  // getWeatherForecast() {
-  //   let params = new HttpParams()
-  //     .set('key', weatherKey)
-  //     .set('q', qq)
-  //     .set('includelocation', 'yes')
-  //     .set('showlocaltime', 'yes')
-  //     .set('units', 'metric')
-  //     .set('format', 'json');
-  //   return this.http.get(
-  //     'http://api.worldweatheronline.com/premium/v1/weather.ashx',
-  //     { params: params }
-  //   );
-  // }
   getWeatherForecast() {
-
    console.log('====================================');
    console.log('ForecastService');
    console.log('====================================');
-
     return new Observable((observer) => {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -68,8 +30,8 @@ export class ForecastService {
         return new HttpParams()
         .set('key', weatherKey)
         // .set('q', '30.033333,31.233334')
-        .set('q', '26.7333304,33.9333296')
-        // .set('q', value.coords.longitude + ',' + value.coords.latitude)
+        // .set('q', '26.7333304,33.9333296')
+        .set('q', value.coords.longitude + ',' + value.coords.latitude)
         .set('includelocation', 'yes')
         .set('showlocaltime', 'yes')
         .set('units', 'metric')

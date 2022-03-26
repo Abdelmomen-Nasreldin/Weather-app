@@ -1,8 +1,17 @@
-<div class="container">
-  <div class="my">
-    <app-today></app-today>
+<div class="my">
+  <div class="chooseCityWeather">
+    <input type="text" placeholder="Enter A City" #cityInput />
+    <button (click)="showCityWeather(cityInput.value)">
+      Show City Weather
+    </button>
   </div>
-  <div class="my">
-    <app-monthly></app-monthly>
-  </div>
+  <app-today
+    [area]="area"
+    [astronomy]="astronomy"
+    [currentCondition]="currentCondition"
+    [hourlyWeather]="hourlyWeather"
+  ></app-today>
+</div>
+<div class="my">
+  <app-monthly></app-monthly>
 </div>

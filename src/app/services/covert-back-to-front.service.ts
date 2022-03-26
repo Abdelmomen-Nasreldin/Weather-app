@@ -7,102 +7,62 @@ import { HourlyWeather } from '../models/hourly-weather';
 import { ForecastService } from './forecast.service';
 import { DailyWeather } from './../models/daily-weather';
 import { MonthlyAverage } from '../models/monthly-average';
+import { ActivatedRoute } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
-export class CovertBackToFrontService {
+export class CovertBackToFrontService implements OnInit {
   hourlyWeather!: HourlyWeather[];
   dailyWeather!: DailyWeather[];
   monthlyWeather!: MonthlyAverage[];
   currentCondition!: CurrentCondition[];
   astronomy!: Astronomy[];
   area!: Area[];
-  constructor(private forecastService: ForecastService) {}
+  // cityName: string | null = null;
+  constructor(
+    private forecastService: ForecastService,
+    // private route: ActivatedRoute
+  ) {}
+  ngOnInit(): void {
+    // this.cityName = this.route.snapshot.paramMap.get('cityName');
+  }
 
   convertWeather() {
     return this.forecastService.getWeatherForecast().pipe(
       map((data: any) => {
         if (data) {
-          let covertedHourlyWeather = [];
-          let covertedCurrentCondition = [];
-          let covertedAstronomy = [];
-          let covertedArea = [];
-          let covertedDailyWeather = [];
-          let covertedMonthlyWeather = [];
-          for (const area of data.data.nearest_area) {
-            let areaScheme: Area = {
-              areaName: area.areaName[0].value,
-              region: area.region[0].value,
-              country: area.country[0].value,
-              // weatherUr: area.weatherUr[0].value, // there is a problem with all images in the app
-            };
-            covertedArea.push(areaScheme);
+          if (data?.data?.nearest_area) {
+            this.area = data.data.nearest_area.map((c: any) =>
+              Area.getInstance(c)
+            );
           }
-          for (const hour of data.data.weather[0].hourly) {
-            let v: HourlyWeather = {
-              time: hour.time,
-              FeelsLikeC: hour.FeelsLikeC,
-              tempC: hour.tempC,
-              humidity: hour.humidity,
-              weatherDesc: hour.weatherDesc[0].value,
-              // weatherIconUrl: hour.weatherIconUrl[0].value,
-            };
-            covertedHourlyWeather.push(v);
+          if (data?.data?.weather[0]?.hourly) {
+            this.hourlyWeather = data.data.weather[0].hourly.map((c: any) =>
+              HourlyWeather.getInstance(c)
+            );
           }
-          // for (const current of data.data.current_condition) {
-          //   let currentConditionSchema: CurrentCondition = {
-          //     FeelsLikeC: current.FeelsLikeC,
-          //     cloudcover: current.cloudcover,
-          //     temp_C: current.temp_C,
-          //     humidity: current.humidity,
-          //     weatherDesc: current.weatherDesc[0].value,
-          //     // weatherIconUrl: current.weatherIconUrl[0].value,
-          //   };
-          //   covertedCurrentCondition.push(currentConditionSchema);
-          // }
+
           if (data?.data?.current_condition) {
             this.currentCondition = data.data.current_condition.map((c: any) =>
               CurrentCondition.getInstance(c)
             );
           }
-          for (const astronomy of data.data.weather[0].astronomy) {
-            let astronomySchema: Astronomy = {
-              moonrise: astronomy.moonrise,
-              moonset: astronomy.moonset,
-              sunrise: astronomy.sunrise,
-              sunset: astronomy.sunset,
-            };
-            covertedAstronomy.push(astronomySchema);
+          if (data?.data.weather[0]?.astronomy) {
+            this.astronomy = data.data.weather[0].astronomy.map((c: any) =>
+              Astronomy.getInstance(c)
+            );
           }
-
-          for (const daily of data.data.weather) {
-            let dailySchema: DailyWeather = {
-              date: daily.date,
-              avgtempC: daily.avgtempC,
-              maxtempC: daily.maxtempC,
-              mintempC: daily.mintempC,
-              sunHour: daily.sunHour,
-              astronomy: daily.astronomy,
-              hourly: daily.hourly,
-            };
-            covertedDailyWeather.push(dailySchema);
+          if (data?.data?.ClimateAverages[0]?.month) {
+            this.monthlyWeather = data.data.ClimateAverages[0].month.map(
+              (c: any) => MonthlyAverage.getInstance(c)
+            );
           }
-          for (const monthly of data.data.ClimateAverages[0].month) {
-            let monthlySchema: MonthlyAverage = {
-              name: monthly.name,
-              absMaxTemp: monthly.absMaxTemp,
-              avgMinTemp: monthly.avgMinTemp,
-            };
-            covertedMonthlyWeather.push(monthlySchema);
+          if (data?.data?.weather) {
+            this.dailyWeather = data.data.weather.map((c: any) =>
+              DailyWeather.getInstance(c)
+            );
           }
-
-          this.hourlyWeather = [...covertedHourlyWeather];
-          // this.currentCondition = [...covertedCurrentCondition];
-          this.astronomy = [...covertedAstronomy];
-          this.area = [...covertedArea];
-          this.dailyWeather = [...covertedDailyWeather];
-          this.monthlyWeather = [...covertedMonthlyWeather];
           return {
             hourlyWeather: this.hourlyWeather,
             currentCondition: this.currentCondition,
@@ -115,6 +75,61 @@ export class CovertBackToFrontService {
         return;
       })
     );
+  }
+
+  convertWeatherByCityName(cityName: string) {
+    let hourlyWeather!: HourlyWeather[];
+    let dailyWeather!: DailyWeather[];
+    let monthlyWeather!: MonthlyAverage[];
+    let currentCondition!: CurrentCondition[];
+    let astronomy!: Astronomy[];
+    let area!: Area[];
+      return this.forecastService.getWeatherByCity(cityName).pipe(
+        map((data: any) => {
+          if (data) {
+            if (data?.data?.nearest_area) {
+              area = data.data.nearest_area.map((c: any) =>
+                Area.getInstance(c)
+              );
+            }
+            if (data?.data?.weather[0]?.hourly) {
+              hourlyWeather = data.data.weather[0].hourly.map((c: any) =>
+                HourlyWeather.getInstance(c)
+              );
+            }
+
+            if (data?.data?.current_condition) {
+              currentCondition = data.data.current_condition.map(
+                (c: any) => CurrentCondition.getInstance(c)
+              );
+            }
+            if (data?.data.weather[0]?.astronomy) {
+              astronomy = data.data.weather[0].astronomy.map((c: any) =>
+                Astronomy.getInstance(c)
+              );
+            }
+            if (data?.data?.ClimateAverages[0]?.month) {
+              monthlyWeather = data.data.ClimateAverages[0].month.map(
+                (c: any) => MonthlyAverage.getInstance(c)
+              );
+            }
+            if (data?.data?.weather) {
+              dailyWeather = data.data.weather.map((c: any) =>
+                DailyWeather.getInstance(c)
+              );
+            }
+            return {
+              hourlyWeather: hourlyWeather,
+              currentCondition: currentCondition,
+              astronomy: astronomy,
+              area: area,
+              dailyWeather: dailyWeather,
+              monthlyWeather: monthlyWeather,
+            };
+          }
+          return ;
+        })
+      );
   }
 }
 interface BackendData {
@@ -140,13 +155,13 @@ class ClimateAverages {
   ) {}
   static getInstance(data: {
     // months: {
-      absMaxTemp: string;
-      absMaxTemp_F: string;
-      avgDailyRainfall: string;
-      avgMinTemp: string;
-      avgMinTemp_F: string;
-      index: string;
-      name: string;
+    absMaxTemp: string;
+    absMaxTemp_F: string;
+    avgDailyRainfall: string;
+    avgMinTemp: string;
+    avgMinTemp_F: string;
+    index: string;
+    name: string;
     // };
   }): ClimateAverages {
     return new ClimateAverages(data.name, data.absMaxTemp, data.avgMinTemp);

@@ -1,0 +1,18 @@
+.header{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #10A631;
+  padding: 20px;
+  .links{
+    max-width:50%;
+    display: flex;
+    justify-content:space-evenly;
+    flex-basis: 40%;
+    a{
+      text-decoration: none;
+    margin: 5px;
+    color: #fff;
+    }
+  }
+}

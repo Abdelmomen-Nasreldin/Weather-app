@@ -2,6 +2,8 @@
 body {
   font-family: "open sans", sans-serif;
   background-color: #e5e5e5;
+  // padding: 0;
+  margin: auto 0;
 }
 .container {
   max-width: 540px;
@@ -17,8 +19,8 @@ ul {
   margin: 0;
 }
 .my {
-  margin-top: 5px;
-  margin-bottom: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 @media (min-width: 576px) {
   .container {

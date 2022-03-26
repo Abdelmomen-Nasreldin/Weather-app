@@ -16,10 +16,5 @@ export class CurrentCondition {
       data.weatherDesc[0]?.value || '',
       data.weatherIconUrl
     );
-    // FeelsLikeC: current.FeelsLikeC,
-    // cloudcover: current.cloudcover,
-    // temp_C: current.temp_C,
-    // humidity: current.humidity,
-    // weatherDesc: current.weatherDesc[0].value,
   }
 }

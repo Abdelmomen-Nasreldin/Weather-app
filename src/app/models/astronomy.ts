@@ -1,14 +1,18 @@
-export interface Astronomy {
-  moonrise: string,
-  moonset: string,
-  sunrise: string,
-  sunset: string
+export class Astronomy {
+  constructor(
+    public moonrise: string,
+    public moonset: string,
+    public sunrise: string,
+    public sunset: string,
+
+  ){}
+  static getInstance(data: any): Astronomy {
+    return new Astronomy(
+      data.moonrise,
+      data.moonset,
+      data.sunrise,
+      data.sunset,
+    );
+  }
 }
 
-
-// moon_illumination: "64"
-// moon_phase: "Waning Gibbous"
-// moonrise: "10:47 PM"
-// moonset: "08:33 AM"
-// sunrise: "06:00 AM"
-// sunset: "06:11 PM"
