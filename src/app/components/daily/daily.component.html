@@ -1,4 +1,20 @@
-<div>
-  <data class=""></data>
-  daily
+<div class="daily">
+  <div id="app">
+    <div id="chart">
+      <svg #svg></svg>
+    </div>
+    <div id="data">
+      <ul></ul>
+    </div>
+  </div>
 </div>
+<div class="" *ngFor="let item of dailyWeather">
+ {{ item.date}}
+</div>
+<!-- astronomy: [{…}]
+avgtempC: "18"
+date: "2022-03-26"
+hourly: (8) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
+maxtempC: "21"
+mintempC: "14"
+sunHour: "12.0" -->

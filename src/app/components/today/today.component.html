@@ -1,12 +1,12 @@
 <div class="today-weather">
   <div class="area">
-    <h1>{{ area?.areaName }} Weather Now</h1>
+    <h2>{{ area?.areaName }} Weather Now</h2>
     <div class="region-country">
       <span>{{ area?.region }}, </span>
       <span>{{ area?.country }}</span>
     </div>
   </div>
-  
+
   <hr />
   <div *ngIf="currentCondition" class="row">
     <div class="temp">

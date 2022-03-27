@@ -29,14 +29,11 @@ export class ForecastService {
       map((value: any) => {
         return new HttpParams()
         .set('key', weatherKey)
-        // .set('q', '30.033333,31.233334')
-        // .set('q', '26.7333304,33.9333296')
-        .set('q', value.coords.longitude + ',' + value.coords.latitude)
+        .set('q', value.coords.latitude + ',' + value.coords.longitude)
         .set('includelocation', 'yes')
         .set('showlocaltime', 'yes')
         .set('units', 'metric')
         .set('format', 'json')
-
       }),
       switchMap(values =>{
          return this.http.get('http://api.worldweatheronline.com/premium/v1/weather.ashx', {params: values})

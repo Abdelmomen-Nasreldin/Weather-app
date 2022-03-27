@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Astronomy } from 'src/app/models/astronomy';
 import { CurrentCondition } from 'src/app/models/current-condition';
 import { HourlyWeather } from 'src/app/models/hourly-weather';
@@ -18,13 +17,12 @@ export class TodayComponent implements OnInit {
   @Input() currentCondition: CurrentCondition | null = null;
    hourNow = +new Date().getHours();
   constructor(
-    // private httpGetWeather: ForecastService,
-    private router : Router,
+    private httpGetWeather: ForecastService,
   ) {}
- 
+
   ngOnInit(): void {
-    // this.httpGetWeather.getWeatherForecast().subscribe((data: any) => {
-    //   console.log(data);
-    // });
+    this.httpGetWeather.getWeatherForecast().subscribe((data: any) => {
+      console.log(data);
+    });
   }
 }
