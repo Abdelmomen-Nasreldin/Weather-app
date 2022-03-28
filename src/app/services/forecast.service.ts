@@ -13,9 +13,6 @@ export class ForecastService {
     // this.getLocation()
   }
   getWeatherForecast() {
-   console.log('====================================');
-   console.log('ForecastService');
-   console.log('====================================');
     return new Observable((observer) => {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -36,7 +33,7 @@ export class ForecastService {
         .set('format', 'json')
       }),
       switchMap(values =>{
-         return this.http.get('http://api.worldweatheronline.com/premium/v1/weather.ashx', {params: values})
+         return this.http.get('https://api.worldweatheronline.com/premium/v1/weather.ashx', {params: values})
       })
     );
   }
@@ -48,7 +45,7 @@ export class ForecastService {
       .set('units', 'metric')
       .set('format', 'json');
     return this.http.get(
-      'http://api.worldweatheronline.com/premium/v1/past-weather.ashx',
+      'https://api.worldweatheronline.com/premium/v1/past-weather.ashx',
       { params: params }
     );
   }
@@ -61,7 +58,7 @@ export class ForecastService {
       .set('units', 'metric')
       .set('format', 'json');
     return this.http.get(
-      'http://api.worldweatheronline.com/premium/v1/weather.ashx',
+      'https://api.worldweatheronline.com/premium/v1/weather.ashx',
       { params: params }
     );
   }

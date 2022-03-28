@@ -30,10 +30,8 @@ export class CityComponent implements OnInit {
     if (this.cityName) {
       this.httpCityNameCoverted
         .convertWeatherByCityName(this.cityName)
-        .subscribe((data) => {
+        .subscribe((data: any) => {
           if (data) {
-            console.log(data.area[0].areaName);
-            console.log(data);
             this.hourlyWeather = data.hourlyWeather;
             this.currentCondition = data.currentCondition[0];
             this.astronomy = data.astronomy;

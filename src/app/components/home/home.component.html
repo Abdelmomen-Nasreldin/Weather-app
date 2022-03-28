@@ -13,7 +13,7 @@
     [hourlyWeather]="hourlyWeather"
   ></app-today>
 </div>
-<app-daily [dailyWeather]="dailyWeather"></app-daily>
+<app-daily *ngIf="dailyWeather" [dailyWeather]="dailyWeather"></app-daily>
 <div class="my">
   <app-monthly></app-monthly>
 </div>

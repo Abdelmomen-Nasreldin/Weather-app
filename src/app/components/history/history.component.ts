@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ForecastService } from './../../services/forecast.service';
 
 @Component({
@@ -8,7 +8,6 @@ import { ForecastService } from './../../services/forecast.service';
 })
 export class HistoryComponent implements OnInit {
   @Input() cityName: string | null = null;
-  // @ViewChild('getWeatherDateInput') dateInput!: ElementRef ;
   date: string = new Date().toDateString();
   weatherData: any;
   constructor(private historyService: ForecastService) {}
@@ -16,7 +15,6 @@ getDayBefore(){
   let date = new Date();
   let yesterday = new Date();
    yesterday.setDate(date.getDate() - 1);
-  //  this.dateInput.nativeElement.value = '2020-05-05';
 }
 
 
@@ -26,7 +24,6 @@ getDayBefore(){
       this.historyService
         .getHistoricalWeather(this.cityName, date)
         .subscribe((data: any) => {
-          console.log(data);
           let x = data.data.weather[0].date;
           this.date = new Date(x).toDateString();
           this.weatherData = data.data.weather[0];

@@ -87,7 +87,6 @@ export class MonthlyAvgTempChartService {
   monthlyWeatherChart() {
     return this.getAllWeatherData().pipe(
       map((months: any, index) => {
-        // console.log(months);
         let names = months.map((month: { name: string }) => month.name);
         let absMaxTempArr = months
           .map((month: any) => month.absMaxTemp)
