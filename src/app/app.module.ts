@@ -16,6 +16,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { BarComponent } from './components/bar/bar.component';
 import { PieComponent } from './components/pie/pie.component';
 import { ScatterComponent } from './components/scatter/scatter.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ScatterComponent } from './components/scatter/scatter.component';
     HeaderComponent,
     BarComponent,
     PieComponent,
-    ScatterComponent
+    ScatterComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
