@@ -5,7 +5,7 @@
       Show City Weather
     </button>
   </div>
-  <!-- <app-daily></app-daily> -->
+
   <app-today
     [area]="area"
     [astronomy]="astronomy"
@@ -13,6 +13,7 @@
     [hourlyWeather]="hourlyWeather"
   ></app-today>
 </div>
+<app-daily [dailyWeather]="dailyWeather"></app-daily>
 <div class="my">
   <app-monthly></app-monthly>
 </div>

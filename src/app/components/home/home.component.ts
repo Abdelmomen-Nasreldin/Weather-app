@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Area } from 'src/app/models/area';
 import { Astronomy } from 'src/app/models/astronomy';
 import { CurrentCondition } from 'src/app/models/current-condition';
+import { DailyWeather } from 'src/app/models/daily-weather';
 import { HourlyWeather } from 'src/app/models/hourly-weather';
 import { CovertBackToFrontService } from 'src/app/services/covert-back-to-front.service';
 
@@ -16,7 +17,7 @@ export class HomeComponent implements OnInit {
   astronomy!: Astronomy[];
   hourlyWeather!: HourlyWeather[];
   currentCondition: CurrentCondition | null = null;
-  // hourNow = +new Date().getHours();
+  dailyWeather!: DailyWeather[]
   constructor(private dataWeatherService: CovertBackToFrontService,
     private router: Router) {}
   showCityWeather(cityName: string): void {
@@ -29,6 +30,7 @@ export class HomeComponent implements OnInit {
         this.currentCondition = data.currentCondition[0];
         this.astronomy = data.astronomy;
         this.area = data.area[0];
+        this.dailyWeather = data.dailyWeather;
       }
     });
   }

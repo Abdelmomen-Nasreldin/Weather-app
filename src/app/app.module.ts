@@ -13,6 +13,9 @@ import { HomeComponent } from './components/home/home.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { CityComponent } from './components/city/city.component';
 import { HeaderComponent } from './components/header/header.component';
+import { BarComponent } from './components/bar/bar.component';
+import { PieComponent } from './components/pie/pie.component';
+import { ScatterComponent } from './components/scatter/scatter.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +27,10 @@ import { HeaderComponent } from './components/header/header.component';
     HomeComponent,
     NotFoundComponent,
     CityComponent,
-    HeaderComponent
+    HeaderComponent,
+    BarComponent,
+    PieComponent,
+    ScatterComponent
   ],
   imports: [
     BrowserModule,
